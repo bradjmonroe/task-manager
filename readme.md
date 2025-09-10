@@ -14,9 +14,9 @@ _A minimal .NET sample that demonstrates a clean application structure with JWT 
 
 ---
 
-## Why this repo?
+## Purpase of this project?
 
-- Showcases **full‑stack** skills with a small, reviewable codebase
+- To showcase **full‑stack** skills with a small, reviewable codebase
 - Clean solution split: **Data** (DbContext + models + migrations), **API** (auth + endpoints), **Web** (Razor UI calling the API)
 - Real‑world bits: **hashed passwords**, **JWT**, **per‑user data** (FK via `CreatedBy`), **migrations**, **CORS**
 
