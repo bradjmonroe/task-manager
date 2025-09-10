@@ -14,7 +14,7 @@ _A minimal .NET sample that demonstrates a clean application structure with JWT 
 
 ---
 
-## Purpase of this project?
+## Purpose of this project?
 
 - To showcase **full‑stack** skills with a small, reviewable codebase
 - Clean solution split: **Data** (DbContext + models + migrations), **API** (auth + endpoints), **Web** (Razor UI calling the API)
