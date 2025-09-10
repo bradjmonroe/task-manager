@@ -5,7 +5,12 @@
 
 _A minimal .NET sample that demonstrates a clean application structure with JWT auth and EF Core with SQLite._
 
-**Stack**: .NET 9 • ASP.NET Core Web API (Controllers) • Razor Pages Web UI • EF Core 9 (SQLite) • JWT Bearer • OpenAPI (built‑in) + Scalar UI
+**Stack**: 
+ • .NET 9
+ • ASP.NET Core Web API (Controllers)
+ • Razor Pages Web UI • EF Core 9 (SQLite)
+ • JWT Bearer
+ • OpenAPI (built‑in) + Scalar UI
 
 ---
 
