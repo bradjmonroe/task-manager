@@ -1,0 +1,38 @@
+# Build outputs
+**/bin/
+**/obj/
+**/out/
+
+# Publish artifacts
+**/publish/
+
+# Local databases 
+*.db
+*.db-shm
+*.db-wal
+
+# Logs & test artifacts
+*.log
+TestResults/
+*.coverage
+*.coveragexml
+
+# IDE/Editor
+.vs/
+.idea/
+.ReSharper*/
+*_ReSharper*/
+*.DotSettings.user
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env / secrets
+.env
+.env.*
