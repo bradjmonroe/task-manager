@@ -100,10 +100,19 @@ TaskTracker.Web/         # Razor Pages UI; typed HttpClient; session‑stored JW
 ### Web: `TaskTracker.Web/appsettings.Development.json`
 
 ```json
-{ "Api": { 
-    "BaseUrl": "http://localhost:5080" 
-    } 
+{
+  "DetailedErrors": true,
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "Api": {
+    "BaseUrl": "https://localhost:5081" 
+  }
 }
+
 ```
 
 ---
