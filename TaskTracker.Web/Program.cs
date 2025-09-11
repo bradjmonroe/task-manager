@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
 
-// JWT
+// Session builder
 builder.Services.AddSession(o =>
 {
     o.IdleTimeout = TimeSpan.FromHours(8);
@@ -18,7 +18,7 @@ builder.Services.AddHttpContextAccessor();
 // Auth header
 builder.Services.AddTransient<AuthHeaderHandler>();
 
-// HttpClient for API
+// HttpClient
 var apiBase = builder.Configuration["Api:BaseUrl"] ?? "http://localhost:5080";
 builder.Services.AddHttpClient<ApiClient>(client =>
 {
@@ -31,6 +31,7 @@ var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
 {
+    app.UseHttpsRedirection();
     app.UseExceptionHandler("/Error");
     app.UseHsts();
 }

@@ -1,0 +1,48 @@
+﻿@page
+@model TaskTracker.Web.Pages.Tasks.IndexModel
+@{
+    ViewData["Title"] = "My Tasks";
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>My Tasks</h2>
+  <form method="post" asp-page-handler="Logout">
+    <button class="btn btn-sm btn-outline-secondary">Logout</button>
+  </form>
+</div>
+
+<form method="post" asp-page-handler="Add" class="card card-body mb-3">
+  <div class="row g-2">
+    <div class="col-12 col-md-8">
+      <input asp-for="Title" class="form-control" placeholder="What needs doing?" />
+      <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="col-12 col-md-4">
+      <button class="btn btn-success w-100">Add Task</button>
+    </div>
+  </div>
+</form>
+
+@if (Model.Tasks.Count == 0)
+{
+  <div class="alert alert-info">No tasks yet. Add your first one!</div>
+}
+else
+{
+  <ul class="list-group">
+    @foreach (var t in Model.Tasks)
+    {
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <input class="form-check-input me-2" type="checkbox" @(t.IsDone ? "checked" : "") disabled />
+          <span style="@(t.IsDone ? "text-decoration: line-through; opacity:.6" : "")">@t.Title</span>
+          <span class="text-muted small ms-2">#@t.Id</span>
+        </div>
+        <form method="post" asp-page-handler="Toggle">
+          <input type="hidden" name="id" value="@t.Id" />
+          <button class="btn btn-sm btn-outline-secondary">Toggle</button>
+        </form>
+      </li>
+    }
+  </ul>
+}

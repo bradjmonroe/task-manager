@@ -5,15 +5,11 @@ namespace TaskTracker.Web.Pages;
 
 public class IndexModel : PageModel
 {
-    private readonly ILogger<IndexModel> _logger;
-
-    public IndexModel(ILogger<IndexModel> logger)
+    public IActionResult OnGet()
     {
-        _logger = logger;
-    }
-
-    public void OnGet()
-    {
-
+        var hasToken = !string.IsNullOrEmpty(HttpContext.Session.GetString("jwt"));
+        return hasToken
+            ? RedirectToPage("/Tasks/Index")
+            : RedirectToPage("/Account/Login");
     }
 }
