@@ -60,9 +60,9 @@ TaskTracker.Web/         # Razor Pages UI; typed HttpClient; session‑stored JW
 
 **Default URLs**:
 
-- API: e.g. `http://localhost:5080`
-- API Docs (Scalar): `http://localhost:5080/scalar`  
-  OpenAPI JSON: `http://localhost:5080/openapi/v1.json`
+- API: e.g. `https://localhost:5081`
+- API Docs (Scalar): `https://localhost:5081/scalar`  
+  OpenAPI JSON: `https://localhost:5081/openapi/v1.json`
 - Web UI: typically `https://localhost:7193` (or `http://localhost:5193`)
 
 > If CORS blocks requests, make sure the API `Cors:AllowedOrigins` contains your Web URL(s).
@@ -134,22 +134,22 @@ TaskTracker.Web/         # Razor Pages UI; typed HttpClient; session‑stored JW
 
 ```bash
 # Register
-curl -s -X POST http://localhost:5080/api/auth/register \
+curl -s -X POST https://localhost:5081/api/auth/register \
   -H "Content-Type: application/json" \
   -d '{"email":"demo@example.com","password":"P@ssw0rd!"}'
 
 # Login 
-TOKEN=$(curl -s -X POST http://localhost:5080/api/auth/login \
+TOKEN=$(curl -s -X POST https://localhost:5081/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{"email":"demo@example.com","password":"P@ssw0rd!"}' | jq -r .token)
 
 # Create a task
-curl -s -X POST http://localhost:5080/api/tasks \
+curl -s -X POST https://localhost:5081/api/tasks \
   -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
   -d '{"title":"Ship demo"}'
 
 # List tasks
-curl -s http://localhost:5080/api/tasks -H "Authorization: Bearer $TOKEN"
+curl -s https://localhost:5081/api/tasks -H "Authorization: Bearer $TOKEN"
 ```
 
 ---
