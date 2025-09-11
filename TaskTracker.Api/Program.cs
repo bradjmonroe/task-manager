@@ -24,7 +24,19 @@ var audience = jwtSection.GetValue<string>("Audience");
 if (string.IsNullOrWhiteSpace(jwtKey) || string.IsNullOrWhiteSpace(issuer) || string.IsNullOrWhiteSpace(audience))
     throw new InvalidOperationException("Missing Jwt:Key/Issuer/Audience");
 
-var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
+var keyRaw = builder.Configuration["Jwt:Key"] 
+    ?? throw new InvalidOperationException("Missing Jwt:Key");
+
+byte[] keyBytes;
+try { keyBytes = Convert.FromBase64String(keyRaw); }   // Base64
+catch { keyBytes = Encoding.UTF8.GetBytes(keyRaw); }   // fallback to UTF8
+
+if (keyBytes.Length < 32)
+    throw new InvalidOperationException($"Jwt:Key too short ({keyBytes.Length} bytes). Require >= 32 bytes.");
+
+var signingKey = new SymmetricSecurityKey(keyBytes);
+
+builder.Services.AddSingleton(signingKey);
 
 builder.Services.AddAuthentication(o =>
 {
@@ -39,8 +51,8 @@ builder.Services.AddAuthentication(o =>
         ValidateAudience = true,
         ValidateIssuerSigningKey = true,
         ValidateLifetime = true,
-        ValidIssuer = issuer,
-        ValidAudience = audience,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
         IssuerSigningKey = signingKey,
         ClockSkew = TimeSpan.FromMinutes(2)
     };

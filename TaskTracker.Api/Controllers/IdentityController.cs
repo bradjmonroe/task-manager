@@ -22,15 +22,14 @@ public class IdentityController : ControllerBase
     private readonly string _audience;
     private readonly SymmetricSecurityKey _signingKey;
 
-    public IdentityController(TasksDb db, IPasswordHasher<AppUser> hasher, IConfiguration cfg)
+    public IdentityController(TasksDb db, IPasswordHasher<AppUser> hasher, 
+                          IConfiguration cfg, SymmetricSecurityKey signingKey)
     {
         _db = db;
         _hasher = hasher;
-        var jwt = cfg.GetSection("Jwt");
-        var key = jwt.GetValue<string>("Key") ?? throw new InvalidOperationException("Missing Jwt:Key");
-        _issuer = jwt.GetValue<string>("Issuer") ?? throw new InvalidOperationException("Missing Jwt:Issuer");
-        _audience = jwt.GetValue<string>("Audience") ?? throw new InvalidOperationException("Missing Jwt:Audience");
-        _signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
+        _signingKey = signingKey; 
+        _issuer = cfg["Jwt:Issuer"] ?? throw new InvalidOperationException("Missing Jwt:Issuer");
+        _audience = cfg["Jwt:Audience"] ?? throw new InvalidOperationException("Missing Jwt:Audience");
     }
 
     private string GenerateJwt(AppUser user)
